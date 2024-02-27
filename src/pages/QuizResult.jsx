@@ -14,10 +14,10 @@ function QuizResult() {
 
   useEffect(() => {
     document.title = "Quiz Me";
-    axios.post(`${process.env.REACT_APP_API}/getusername`, {}, { withCredentials: true }).then((res) => setUsername(res.data));
-    axios.post(`${process.env.REACT_APP_API}/getquizrecordinfo`, { quizRecordId: quizRecordId }, { withCredentials: true }).then((res) => {
+    axios.post(`${import.meta.env.VITE_API}/getusername`, {}, { withCredentials: true }).then((res) => setUsername(res.data));
+    axios.post(`${import.meta.env.VITE_API}/getquizrecordinfo`, { quizRecordId: quizRecordId }, { withCredentials: true }).then((res) => {
       setQuizRecordInfo(res.data);
-      axios.post(`${process.env.REACT_APP_API}/getquizinfo`, { quizId: res.data.quiz_id }, { withCredentials: true }).then((res) => {
+      axios.post(`${import.meta.env.VITE_API}/getquizinfo`, { quizId: res.data.quiz_id }, { withCredentials: true }).then((res) => {
         setQuizInfo(res.data);
       });
     });

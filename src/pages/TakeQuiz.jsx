@@ -14,7 +14,7 @@ function TakeQuiz() {
   const [showPopupSubmissionConfirmation, setShowPopupSubmissionConfirmation] = useState(false);
 
   useEffect(() => {
-    axios.post(`${process.env.REACT_APP_API}/takequiz`, { quizRecordId: quizRecordId }, { withCredentials: true }).then((res) => {
+    axios.post(`${import.meta.env.VITE_API}/takequiz`, { quizRecordId: quizRecordId }, { withCredentials: true }).then((res) => {
       setQuizInfo(res.data.quizRecord);
       setUserAnswers(Array(res.data.quizRecord.questions.length).fill(-1));
       setIsLoading(false);
@@ -29,7 +29,7 @@ function TakeQuiz() {
   };
 
   const handleSubmit = async () => {
-    await axios.post(`${process.env.REACT_APP_API}/submitquiz`, { quizRecordId: quizRecordId, userAnswers: userAnswers }, { withCredentials: true }).then((res) => {
+    await axios.post(`${import.meta.env.VITE_API}/submitquiz`, { quizRecordId: quizRecordId, userAnswers: userAnswers }, { withCredentials: true }).then((res) => {
       navigate(`/quizresult/${quizRecordId}`);
     });
   };

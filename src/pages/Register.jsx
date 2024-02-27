@@ -8,7 +8,7 @@ function Register() {
   useEffect(() => (document.title = "Quiz Me"), []);
 
   const handleRegister = async () => {
-    await axios.post(`${process.env.REACT_APP_API}/createacc`, { username: username, password: password }).then((res) => {
+    await axios.post(`${import.meta.env.VITE_API}/createacc`, { username: username, password: password }).then((res) => {
       setUsername("");
       setPassword("");
     });

@@ -13,7 +13,7 @@ function UserProfile() {
 
   useEffect(() => {
     const handleAcceptRequest = async () => {
-      await axios.post(`${process.env.REACT_APP_API}/acceptfriendrequest`, { username: username }, { withCredentials: true }).then((res) => {
+      await axios.post(`${import.meta.env.VITE_API}/acceptfriendrequest`, { username: username }, { withCredentials: true }).then((res) => {
         if (res.data.code === 200) setStatus(friends);
       });
     };
@@ -34,7 +34,7 @@ function UserProfile() {
     );
     const e = async () => {
       console.log(username);
-      axios.post(`${process.env.REACT_APP_API}/getprofileinfo`, { username: username.toString() }, { withCredentials: true }).then((res) => {
+      axios.post(`${import.meta.env.VITE_API}/getprofileinfo`, { username: username.toString() }, { withCredentials: true }).then((res) => {
         setUserData(res.data.profileInfo);
         if (res.data.message === "Success (Own Account)") setStatus(editProfile);
         else if (res.data.message === "Success (Friend's Account)") setStatus(friends);
@@ -50,13 +50,13 @@ function UserProfile() {
   }, [username]);
 
   const handleAddFriend = async () => {
-    await axios.post(`${process.env.REACT_APP_API}/addfriend`, { username: username }, { withCredentials: true }).then((res) => {
+    await axios.post(`${import.meta.env.VITE_API}/addfriend`, { username: username }, { withCredentials: true }).then((res) => {
       if (res.data.code === 200) setStatus(cancelRequest);
     });
   };
 
   const handleCancelRequest = async () => {
-    await axios.post(`${process.env.REACT_APP_API}/cancelfriendrequest`, { username: username }, { withCredentials: true }).then((res) => {
+    await axios.post(`${import.meta.env.VITE_API}/cancelfriendrequest`, { username: username }, { withCredentials: true }).then((res) => {
       if (res.data.code === 200) setStatus(addFriend);
     });
   };

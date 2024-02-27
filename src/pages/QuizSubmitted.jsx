@@ -10,8 +10,8 @@ function QuizSubmitted() {
 
   useEffect(() => {
     const e = async () => {
-      await axios.post(`${process.env.REACT_APP_API}/getusername`, {}, { withCredentials: true }).then((res) => setUsername(res.data));
-      await axios.post(`${process.env.REACT_APP_API}/getquizinfo`, { quizRecordId: quizRecordId }, { withCredentials: true }).then((res) => {
+      await axios.post(`${import.meta.env.VITE_API}/getusername`, {}, { withCredentials: true }).then((res) => setUsername(res.data));
+      await axios.post(`${import.meta.env.VITE_API}/getquizinfo`, { quizRecordId: quizRecordId }, { withCredentials: true }).then((res) => {
         setQuizInfo(res.data);
         setIsLoading(false);
       });

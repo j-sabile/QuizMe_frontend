@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import QuestionTable from "../component/QuestionTable";
+import QuestionTable from "../components/QuestionTable";
 import MyNavBar from "./MyNavBar";
 import { Modal } from "react-bootstrap";
 
@@ -32,7 +32,7 @@ function Quiz() {
   const letters = ["a. ", "b. ", "c. ", "d. ", "e. ", "f. ", "g. ", "h. ", "i. ", "j. ", "k. ", "l. ", "m. ", "n. ", "o. ", "p. "];
 
   useEffect(() => {
-    axios.post(`${process.env.REACT_APP_API}/getquizinfo`, { quizId: quizId }, { withCredentials: true }).then((res) => {
+    axios.post(`${import.meta.env.VITE_API}/getquizinfo`, { quizId: quizId }, { withCredentials: true }).then((res) => {
       setQuizInfo(res.data);
       setIsLoading(false);
       setPrivacy(res.data.privacy);
@@ -41,7 +41,7 @@ function Quiz() {
   }, []);
 
   const getQuizInfo = async () => {
-    await axios.post(`${process.env.REACT_APP_API}/getquizinfo`, { quizId: quizId }, { withCredentials: true }).then((res) => {
+    await axios.post(`${import.meta.env.VITE_API}/getquizinfo`, { quizId: quizId }, { withCredentials: true }).then((res) => {
       setQuizInfo(res.data);
       setIsLoading(false);
       setPrivacy(res.data.privacy);
@@ -54,32 +54,32 @@ function Quiz() {
   };
 
   const deleteQuestion = async (questionId) => {
-    await axios.post(`${process.env.REACT_APP_API}/deletequestion`, { quizId: quizId, questionId: questionId }, { withCredentials: true }).then((res) => {
+    await axios.post(`${import.meta.env.VITE_API}/deletequestion`, { quizId: quizId, questionId: questionId }, { withCredentials: true }).then((res) => {
       getQuizInfo();
     });
   };
   const addQuestion = async (questionItem) => {
-    await axios.post(`${process.env.REACT_APP_API}/addquestion`, { quizId: quizId, questionItem: questionItem }, { withCredentials: true }).then((res) => {
+    await axios.post(`${import.meta.env.VITE_API}/addquestion`, { quizId: quizId, questionItem: questionItem }, { withCredentials: true }).then((res) => {
       setshowPopupAddQuestion(false);
       getQuizInfo();
     });
   };
   const editQuestion = async (questionItem) => {
-    await axios.post(`${process.env.REACT_APP_API}/editquestion`, { quizId: quizId, questionItem: questionItem }, { withCredentials: true }).then((res) => {
+    await axios.post(`${import.meta.env.VITE_API}/editquestion`, { quizId: quizId, questionItem: questionItem }, { withCredentials: true }).then((res) => {
       setshowPopupEditQuestion(false);
       getQuizInfo();
     });
   };
 
   const handleTakeQuiz = async () => {
-    await axios.post(`${process.env.REACT_APP_API}/generatequizrecord`, { quizId: quizId }, { withCredentials: true }).then((res) => {
+    await axios.post(`${import.meta.env.VITE_API}/generatequizrecord`, { quizId: quizId }, { withCredentials: true }).then((res) => {
       if (res.data.code === 201) navigate(`/takequiz/${res.data.quizRecordId}`);
       else if (res.data.code === 401) setShowPopupLoginFirst(true);
     });
   };
 
   const handleDeleteQuiz = async () => {
-    await axios.post(`${process.env.REACT_APP_API}/deletequiz`, { quizId: quizId }, { withCredentials: true }).then((res) => {
+    await axios.post(`${import.meta.env.VITE_API}/deletequiz`, { quizId: quizId }, { withCredentials: true }).then((res) => {
       navigate("/");
     });
   };
@@ -87,7 +87,7 @@ function Quiz() {
   const handleGenerate = async () => {
     if (notes.length >= 300) {
       setGenerating(true);
-      await axios.post(`${process.env.REACT_APP_API}/generateaiquestions`, { quizId: quizId, text: notes, numberOfQuestions: numberOfQuestions }).then((res) => {
+      await axios.post(`${import.meta.env.VITE_API}/generateaiquestions`, { quizId: quizId, text: notes, numberOfQuestions: numberOfQuestions }).then((res) => {
         if (res.data.code === 200) {
           setGenerating(false);
           setShowPopupAutoQuestion(false);
@@ -104,7 +104,7 @@ function Quiz() {
 
   const handleSaveInEdit = async () => {
     setSaving(true);
-    await axios.post(`${process.env.REACT_APP_API}/editquiz`, { quizId: quizId, privacy: privacy }, { withCredentials: true }).then((res) => {
+    await axios.post(`${import.meta.env.VITE_API}/editquiz`, { quizId: quizId, privacy: privacy }, { withCredentials: true }).then((res) => {
       setSaving(false);
     });
   };

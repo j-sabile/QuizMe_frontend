@@ -30,7 +30,7 @@ function NavBar() {
   const [showSuccessCreateAcc, setShowSuccessCreateAcc] = useState(false);
 
   useEffect(() => {
-    axios.post(`${process.env.REACT_APP_API}/getusername`, {}, { withCredentials: true }).then((res) => {
+    axios.post(`${import.meta.env.VITE_API}/getusername`, {}, { withCredentials: true }).then((res) => {
       if (res.data) setDisplayUsername(res.data);
       setIsLoading(false);
     });
@@ -38,7 +38,7 @@ function NavBar() {
 
   const handleLogIn = async () => {
     setIsLoggingIn(true);
-    await axios.post(`${process.env.REACT_APP_API}/login`, { username: username, password: password }, { withCredentials: true }).then((res) => {
+    await axios.post(`${import.meta.env.VITE_API}/login`, { username: username, password: password }, { withCredentials: true }).then((res) => {
       if (res.data.code === 200) {
         window.location.reload();
       } else if (res.data.code === 401) {
@@ -54,7 +54,7 @@ function NavBar() {
 
   const handleLogOut = async () => {
     setIsLoggingOut(true);
-    await axios.post(`${process.env.REACT_APP_API}/logout`, {}, { withCredentials: true }).then((res) => {
+    await axios.post(`${import.meta.env.VITE_API}/logout`, {}, { withCredentials: true }).then((res) => {
       navigate("/");
       console.log(res.data);
     });
@@ -67,7 +67,7 @@ function NavBar() {
     setCreateClicked(true);
     username.length >= 3 &&
       password.length >= 8 &&
-      axios.post(`${process.env.REACT_APP_API}/createacc`, { username: username, password: password }).then((res) => {
+      axios.post(`${import.meta.env.VITE_API}/createacc`, { username: username, password: password }).then((res) => {
         if (res.data.code === 201) {
           setShowLogIn(false);
           setShowSuccessCreateAcc(true);
@@ -102,7 +102,7 @@ function NavBar() {
 
     const fetchSearchResults = async () => {
       try {
-        const response = await axios.post(`${process.env.REACT_APP_API}/search`, { searchRequest: search });
+        const response = await axios.post(`${import.meta.env.VITE_API}/search`, { searchRequest: search });
         setSearchResults(response.data.req);
       } catch (error) {
         console.error("Error fetching search results:", error);

@@ -1,5 +1,5 @@
 import axios from "axios";
-import Popup from "../component/Popup.js";
+import Popup from "../components/Popup";
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -21,16 +21,16 @@ function LogIn() {
   // redirects if already logged in
   useEffect(() => {
     document.title = "Login";
-    axios.post(`${process.env.REACT_APP_API}/isloggedin`, {}, { withCredentials: true }).then((res) => (res.data ? redirect() : setIsLoading(false)));
+    axios.post(`${import.meta.env.VITE_API}/isloggedin`, {}, { withCredentials: true }).then((res) => (res.data ? redirect() : setIsLoading(false)));
     // eslint-disable-next-line
   }, []);
 
   const redirect = async () => {
-    location.state ? navigate(-1) : axios.post(`${process.env.REACT_APP_API}/getusername`, {}, { withCredentials: true }).then((res) => navigate(`/u/${res.data}`));
+    location.state ? navigate(-1) : axios.post(`${import.meta.env.VITE_API}/getusername`, {}, { withCredentials: true }).then((res) => navigate(`/u/${res.data}`));
   };
 
   const handleLogin = async () => {
-    await axios.post(`${process.env.REACT_APP_API}/login`, { username: username, password: password }, { withCredentials: true }).then((res) => {
+    await axios.post(`${import.meta.env.VITE_API}/login`, { username: username, password: password }, { withCredentials: true }).then((res) => {
       if (res.data.code === 200) {
         redirect();
       } else if (res.data.code === 404) {
@@ -49,7 +49,7 @@ function LogIn() {
     newUsername.length >= 3 &&
       newPassword.length >= 8 &&
       axios
-        .post(`${process.env.REACT_APP_API}/createacc`, { username: newUsername, password: newPassword })
+        .post(`${import.meta.env.VITE_API}/createacc`, { username: newUsername, password: newPassword })
         .then((response) => {
           setNewPassword("");
           setNewUsername("");
