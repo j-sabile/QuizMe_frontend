@@ -286,7 +286,7 @@ function Quiz() {
                       <button className="btn btn-primary px-4" onClick={() => setshowPopupAddQuestion(true)}>
                         Add a question
                       </button>
-                      {/* <button type="button" className="btn btn-sm btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                      <button type="button" className="btn btn-sm btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                         <span className="visually-hidden">Toggle Dropdown</span>
                         </button>
                         <ul className="dropdown-menu px-3 py-0">
@@ -295,7 +295,7 @@ function Quiz() {
                         {"Auto Generate Questions (experimental)"}
                         </button>
                         </li>
-                      </ul> */}
+                      </ul>
                     </div>
                   </div>
                   <div className="accordion my-3" id="accordionPanelsStayOpenExample">
