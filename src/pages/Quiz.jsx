@@ -133,14 +133,11 @@ function Quiz() {
           numberOfQuestions: numberOfQuestions,
         })
         .then((res) => {
-          if (res.data.code === 200) {
-            setGenerating(false);
+          setGenerating(false);
+          getQuizInfo();
+          if (res.status === 200) setShowPopupAutoQuestion(false);
+          else {
             setShowPopupAutoQuestion(false);
-            getQuizInfo();
-          } else if (res.data.code === 500) {
-            setGenerating(false);
-            setShowPopupAutoQuestion(false);
-            getQuizInfo();
             setShowPopupError(true);
           }
         });
