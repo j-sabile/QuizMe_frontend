@@ -8,7 +8,7 @@ import { Modal } from "react-bootstrap";
 function Quiz() {
   const navigate = useNavigate();
 
-  const max = 4000;
+  const max = 10000;
   const { quizId } = useParams();
   const [isLoading, setIsLoading] = useState(true);
 
