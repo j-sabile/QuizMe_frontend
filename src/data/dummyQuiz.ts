@@ -4,11 +4,10 @@ const dummyQuiz: Quiz = {
   id: "quiz-001",
   title: "World Capitals Quiz",
   shortDescription: "Test your capital city knowledge!",
-  longDescription:
-    "Challenge yourself with this quiz on world capitals. Can you name the capital of countries from every continent? From Paris to Canberra, prove your geography skills.",
+  longDescription: "Challenge yourself with this quiz on world capitals. Can you name the capital of countries from every continent? From Paris to Canberra, prove your geography skills.",
   image: "https://picsum.photos/id/222/800",
   ownerUsername: "geoGuru",
-  createdAt: new Date("2024-10-01T10:00:00Z"),
+  createdAt: "2025-06-03T05:03:57.615+00:00",
   questions: [
     {
       question: "What is the capital of France?",
@@ -36,6 +35,7 @@ const dummyQuiz: Quiz = {
       correctAnswer: 1,
     },
   ],
+  isOwner: false
 };
 
 export default dummyQuiz;

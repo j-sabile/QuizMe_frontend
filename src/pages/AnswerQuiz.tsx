@@ -95,6 +95,7 @@ const AnswerQuiz = () => {
       </div>
 
       <QuestionWithChoices
+        isAnswering={true}
         question={quiz.questions![currentQuestionIndex]}
         questionNumber={currentQuestionIndex}
         selectChoice={handleSelectChoice}

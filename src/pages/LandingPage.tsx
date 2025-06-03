@@ -1,8 +1,20 @@
+import { useEffect, useState } from "react";
 import { Search } from "lucide-react";
-import dummyQuizzes from "../data/dummyQuizzes";
-
+import Quizzes from "@/components/Quizzes";
+import { getQuizzes, QUIZ_TYPE } from "@/utils/getQuizzes";
+import type { Quiz } from "@/interfaces/IQuiz";
 
 const HomePage = () => {
+  const [quizzes, setQuizzes] = useState<Quiz[]>([]);
+
+  useEffect(() => {
+    const loadQuizzes = async () => {
+      const data = await getQuizzes(QUIZ_TYPE.FEATURED);
+      setQuizzes(data);
+    };
+    loadQuizzes();
+  }, []);
+
   return (
     <main className="flex flex-col items-center min-h-screen gap-20">
       {/* LANDING SECTION */}
@@ -36,18 +48,7 @@ const HomePage = () => {
 
       {/* FEATURED QUIZZES SECTION */}
       <section className="flex flex-col gap-6 max-w-[1120px] px-4">
-        <h2 className="text-3xl font-semibold">Featured Quizzes</h2>
-        <div className="flex flex-wrap gap-6 gap-y-8">
-          {dummyQuizzes.map((quiz, ind) => (
-            <section key={ind} className="flex flex-col w-[250px]">
-              <div className="h-[150px] rounded-xl overflow-hidden mb-2 shadow">
-                <img className="object-cover w-full h-full" src={quiz.image} />
-              </div> 
-              <h3 className="text-xl font-semibold">{quiz.title}</h3>
-              <p>{quiz.description}</p>
-            </section>
-          ))}
-        </div>
+        <Quizzes quizzes={quizzes} title="Featured Quizzes" />
       </section>
     </main>
   );
