@@ -8,8 +8,9 @@ const ProtectedRoute = () => {
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
+        if (!localStorage.getItem("userId")) throw new Error();
         const response = await fetch(`${import.meta.env.VITE_API}/auth/status`, { credentials: "include" });
-        if (!response.ok) navigate("/sign-in");
+        if (!response.ok) throw new Error();
       } catch (error) {
         navigate("/sign-in");
       }
@@ -17,6 +18,12 @@ const ProtectedRoute = () => {
     checkAuthStatus();
   }, []);
 
+  const handleLogOut = async () => {
+    await fetch(`${import.meta.env.VITE_API}/logout`, { credentials: "include" });
+    localStorage.removeItem("userId");
+    window.location.href = "/";
+  };
+  
   return (
     <div className="h-screen">
       {/* Top Bar (Mobile only) */}
@@ -27,7 +34,7 @@ const ProtectedRoute = () => {
             <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
-        <h1 className="text-lg font-semibold">Quiz Me</h1>
+        <h1 className="text-2xl font-semibold">Quiz Me</h1>
       </header>
 
       {/* Mobile sidebar overlay */}
@@ -42,7 +49,7 @@ const ProtectedRoute = () => {
         <div className="flex flex-col h-full">
           {/* Sidebar header with close button on mobile */}
           <div className="flex items-center justify-between h-16 px-4">
-            <h1 className="text-xl font-bold">Quiz Me</h1>
+            <h1 className="text-3xl font-bold">Quiz Me</h1>
             <button onClick={() => setSidebarOpen(false)} className="p-2 rounded-md hover:bg-gray-200 lg:hidden">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -51,17 +58,20 @@ const ProtectedRoute = () => {
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
-            {["Home", "Account"].map((item) => (
-              <Link
-                key={item}
-                to={`/${item.toLowerCase()}`}
-                className="block px-4 py-2 rounded hover:bg-gray-200 transition-colors"
-                onClick={() => setSidebarOpen(false)}
-              >
-                {item}
-              </Link>
-            ))}
+          <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto text-lg">
+            <Link to="/home" className="block px-4 py-2 rounded hover:bg-gray-200 transition-colors" onClick={() => setSidebarOpen(false)}>
+              Home
+            </Link>
+            <Link
+              to={`user/${localStorage.getItem("userId")}`}
+              className="block px-4 py-2 rounded hover:bg-gray-200 transition-colors"
+              onClick={() => setSidebarOpen(false)}
+            >
+              Account
+            </Link>
+            <button onClick={handleLogOut} className="block px-4 py-2 rounded hover:bg-gray-200 transition-colors w-full text-start">
+              Log Out
+            </button>
           </nav>
         </div>
       </aside>

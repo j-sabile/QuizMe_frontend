@@ -20,8 +20,11 @@ const LogInSignUpTemplate: React.FC<{ isSignIn: boolean }> = ({ isSignIn }) => {
         body: JSON.stringify({ username, password }),
       });
 
-      if (res.ok) window.location.href = "/home";
-      else alert("Incorrect credentials");
+      if (res.ok) {
+        const data = await res.json();
+        localStorage.setItem("userId", data.userId);
+        window.location.href = "/home";
+      } else alert("Incorrect credentials");
       setPassword("");
     } else {
       const res = await fetch(`${import.meta.env.VITE_API}/createacc`, {

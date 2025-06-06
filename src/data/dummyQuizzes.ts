@@ -1,6 +1,6 @@
-import type { Quiz } from "../interfaces/IQuiz";
+// import type { Quiz } from "../interfaces/IQuiz";
 
-const dummyQuizzes: Quiz[] = [
+const dummyQuizzes = [
   {
     id: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
     title: "World Capitals Quiz",

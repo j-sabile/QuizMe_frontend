@@ -11,6 +11,7 @@ import Explore from "./pages/Explore";
 import QuizHomePage from "./pages/QuizHomePage";
 import AnswerQuiz from "./pages/AnswerQuiz";
 import QuizResult from "./pages/QuizResult";
+import Account from "./pages/Account";
 
 createRoot(document.getElementById("root") as Container).render(
   <BrowserRouter>
@@ -25,6 +26,7 @@ createRoot(document.getElementById("root") as Container).render(
         <Route path="/quiz/:quizId" element={<QuizHomePage />} />
         <Route path="/quiz/:quizId/answer" element={<AnswerQuiz />} />
         <Route path="/result/:resultId" element={<QuizResult />} />
+        <Route path="/user/:userId" element={<Account />} />
       </Route>
     </Routes>
   </BrowserRouter>

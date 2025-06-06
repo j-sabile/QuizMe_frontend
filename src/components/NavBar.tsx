@@ -49,7 +49,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <ul className="md:hidden px-4 pb-4 space-y-2">
+        <ul className="md:hidden px-4 pb-4 space-y-4 bg-white pt-4">
           <li>
             <button onClick={handleCreateAccClick} className="cursor-pointer">
               Create Account

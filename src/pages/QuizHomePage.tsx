@@ -161,11 +161,11 @@ const QuizHomePage = () => {
 
         {/* Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-4 sm:mb-6 w-full">
-          <TabsList className="grid grid-cols-2 w-full sm:w-[250px] h-10">
-            <TabsTrigger value="overview" className="text-md">
+          <TabsList className="grid w-full grid-cols-2 h-auto p-1 bg-gray-100 rounded-2xl gap-2 max-w-[500px]">
+            <TabsTrigger value="overview" className="text-lg py-2 px-2 rounded-xl break-words whitespace-normal text-center data-[state=active]:bg-white">
               Overview
             </TabsTrigger>
-            <TabsTrigger value="questions" className="text-md">
+            <TabsTrigger value="questions" className="text-lg py-2 px-2 rounded-xl break-words whitespace-normal text-center data-[state=active]:bg-white">
               Questions
             </TabsTrigger>
           </TabsList>

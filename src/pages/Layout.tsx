@@ -7,8 +7,11 @@ export default function Layout() {
 
   useEffect(() => {
     const isLoggedIn = async () => {
-      const res = await fetch(`${import.meta.env.VITE_API}/auth/status`, { credentials: "include" });
-      if (res.ok) navigate("/home");
+      try {
+        if (!localStorage.getItem("userId")) return;
+        const res = await fetch(`${import.meta.env.VITE_API}/auth/status`, { credentials: "include" });
+        if (res.ok) navigate("/home");
+      } catch (error) {}
     };
     isLoggedIn();
   }, []);
