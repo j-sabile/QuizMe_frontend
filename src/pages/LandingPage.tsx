@@ -25,18 +25,18 @@ const HomePage = () => {
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black/50"></div>
-        <div className="relative z-10 flex flex-col items-center justify-center gap-4 h-full text-white">
-          <h1 className="text-5xl font-semibold">Welcome to Quiz Me</h1>
-          <p>The world's most popular quiz platform</p>
-          <div className="w-full max-w-md mx-auto p-4 mt-6">
-            <div className="relative flex items-center bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
-              <div className="flex items-center pl-4 pr-2">
+        <div className="relative z-10 flex flex-col items-center justify-center px-2 gap-4 h-full text-white">
+          <h1 className="text-5xl font-semibold text-center">Welcome to Quiz Me</h1>
+          <p className="text-center">The world's most popular quiz platform</p>
+          <div className="w-full max-w-md mx-auto px-2 sm:p-4 mt-6">
+            <div className="relative flex justify-between items-center bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+              <div className="hidden sm:flex items-center pl-4 pr-2">
                 <Search className="h-5 w-5 text-gray-400" />
               </div>
               <input
                 type="text"
                 placeholder="Search for quizzes"
-                className="flex-1 border-0 bg-transparent focus:ring-0 focus:outline-none text-gray-700 placeholder-gray-400 px-2 py-3"
+                className="border-0 bg-transparent focus:ring-0 focus:outline-none text-gray-700 placeholder-gray-400 min-w-40 ps-4 py-3 "
               />
               <button className="bg-blue-500 hover:bg-blue-700 text-white px-6 py-3 rounded-2xl m-1 font-medium focus:outline-blue-900 focus:bg-blue-700 cursor-pointer">
                 Search

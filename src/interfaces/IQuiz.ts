@@ -6,7 +6,7 @@ interface Quiz {
   shortDescription: string;
   longDescription: string;
   image: string;
-  ownerUsername: string;
+  userId: { username: string; id: string };
   isOwner: boolean;
   questions: Question[];
   type: string[];
