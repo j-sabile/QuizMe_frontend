@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Search } from "lucide-react";
+// import { Search } from "lucide-react";
 import Quizzes from "@/components/Quizzes";
 import { getQuizzes, QUIZ_TYPE } from "@/utils/getQuizzes";
 import type { Quiz } from "@/interfaces/IQuiz";
