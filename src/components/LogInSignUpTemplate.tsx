@@ -43,10 +43,12 @@ const LogInSignUpTemplate: React.FC<{ isSignIn: boolean }> = ({ isSignIn }) => {
     setIsLoading(false);
   };
 
-  const handleGoogleSignIn = async () => {
-    setIsLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setIsLoading(false);
+  const handleGoogleLogin = () => {
+    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+    const redirectUri = encodeURIComponent(import.meta.env.VITE_GOOGLE_REDIRECT_URI);
+    const scope = encodeURIComponent("https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email openid");
+    const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=${scope}`;
+    window.location.href = authUrl;
   };
 
   return (
@@ -133,7 +135,7 @@ const LogInSignUpTemplate: React.FC<{ isSignIn: boolean }> = ({ isSignIn }) => {
           {/* Google Sign In */}
           <button
             className="flex flex-row justify-center items-center w-full h-12 mb-6 border-slate-200 hover:bg-slate-50 transition-colors border-[1px] rounded-lg"
-            onClick={handleGoogleSignIn}
+            onClick={handleGoogleLogin}
             disabled={isLoading}
           >
             <svg className="w-5 h-5 mr-3" viewBox="0 0 24 24">

@@ -12,6 +12,7 @@ import QuizHomePage from "./pages/QuizHomePage";
 import AnswerQuiz from "./pages/AnswerQuiz";
 import QuizResult from "./pages/QuizResult";
 import Account from "./pages/Account";
+import GoogleAuth from "./pages/GoogleAuth";
 
 createRoot(document.getElementById("root") as Container).render(
   <BrowserRouter>
@@ -28,6 +29,7 @@ createRoot(document.getElementById("root") as Container).render(
         <Route path="/result/:resultId" element={<QuizResult />} />
         <Route path="/user/:userId" element={<Account />} />
       </Route>
+      <Route path="/auth" element={<GoogleAuth />} />
     </Routes>
   </BrowserRouter>
 );
