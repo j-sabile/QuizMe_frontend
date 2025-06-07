@@ -28,7 +28,7 @@ const HomePage = () => {
         <div className="relative z-10 flex flex-col items-center justify-center px-2 gap-4 h-full text-white">
           <h1 className="text-5xl font-semibold text-center">Welcome to Quiz Me</h1>
           <p className="text-center">The world's most popular quiz platform</p>
-          <div className="w-full max-w-md mx-auto px-2 sm:p-4 mt-6">
+          {/* <div className="w-full max-w-md mx-auto px-2 sm:p-4 mt-6">
             <div className="relative flex justify-between items-center bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
               <div className="hidden sm:flex items-center pl-4 pr-2">
                 <Search className="h-5 w-5 text-gray-400" />
@@ -42,7 +42,7 @@ const HomePage = () => {
                 Search
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
 
