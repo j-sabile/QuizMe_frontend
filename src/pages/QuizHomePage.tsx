@@ -185,6 +185,12 @@ const QuizHomePage = () => {
                   <div className="text-sm sm:text-base">{quiz.shortDescription}</div>
                 </div>
                 <div>
+                  <Label className="text-sm text-gray-500">Created by</Label>
+                  <Link to={`/user/${quiz.userId.id}`} className="text-sm sm:text-base">
+                    {quiz.userId.username}
+                  </Link>
+                </div>
+                <div>
                   <Label className="text-md text-gray-500">Statistics</Label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mt-2">
                     <div className="bg-gray-50 p-3 rounded-md">
