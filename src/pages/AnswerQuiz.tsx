@@ -12,7 +12,7 @@ const AnswerQuiz = () => {
   const [hasAnswered, setHasAnswered] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [resultId, setResultId] = useState<string>("");
-  const timeStart = Date.now();
+  const [timeStart, _] = useState(Date.now());
 
   useEffect(() => {
     const loadQuiz = async () => {
@@ -39,7 +39,7 @@ const AnswerQuiz = () => {
           userAnswers: answers,
           questionIds: quiz!.questions?.map((q) => q.id),
           dateTaken: Date.now(),
-          durationSeconds: Math.floor((Date.now() - timeStart)/1000),
+          durationSeconds: Math.floor((Date.now() - timeStart) / 1000),
         }),
       });
       if (!res.ok) return;
