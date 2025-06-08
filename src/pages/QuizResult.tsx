@@ -91,10 +91,12 @@ const QuizResult = () => {
 
         {/* Action Buttons */}
         <div className="mt-16 flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg" className="text-lg px-8 py-4 h-auto flex items-center gap-3">
-            <RotateCcw className="w-5 h-5" />
-            Retake Quiz
-          </Button>
+          <Link to={`/quiz/${quizResult.quizId}/answer`}>
+            <Button size="lg" className="text-lg px-8 py-4 h-auto flex items-center gap-3">
+              <RotateCcw className="w-5 h-5" />
+              Retake Quiz
+            </Button>
+          </Link>
           <Link to="/home">
             <Button size="lg" variant="outline" className="text-lg px-8 py-4 h-auto">
               View More Quizzes
