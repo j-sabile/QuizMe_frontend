@@ -305,35 +305,31 @@ const QuizHomePage = () => {
               {quiz.questions?.map((question, qIndex) => (
                 <AccordionItem key={qIndex} value={qIndex.toString()} className="border-b border-gray-200">
                   <AccordionTrigger className="py-3 hover:no-underline text-left">
-                    <div className="flex items-start justify-between w-full pr-2 sm:pr-4">
+                    <div className="flex items-center justify-between w-full pr-2 sm:pr-4">
                       <div className="text-left font-normal flex-1 min-w-0">
                         <span className="text-gray-500 mr-2 text-base sm:text-lg">{qIndex + 1}.</span>
                         <span className="text-base sm:text-lg break-words">{question.question}</span>
                       </div>
                       {quiz.isOwner && (
                         <div className="flex items-center gap-1 sm:gap-2 ml-2 flex-shrink-0">
-                          <Button
-                            size="sm"
-                            variant="ghost"
+                          <div
                             onClick={(e) => {
                               e.stopPropagation();
                               handleEditQuestion(qIndex);
                             }}
-                            className="h-6 w-6 sm:h-7 sm:w-7 p-0 text-gray-500 hover:bg-gray-50"
+                            className="flex items-center h-6 w-6 sm:h-7 sm:w-7 p-0 text-gray-500 hover:bg-gray-50"
                           >
                             <Edit className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="ghost"
+                          </div>
+                          <div
                             onClick={(e) => {
                               e.stopPropagation();
                               handleDeleteQuestion(qIndex);
                             }}
-                            className="h-6 w-6 sm:h-7 sm:w-7 p-0 text-gray-500 hover:bg-gray-50 hover:text-red-600"
+                            className="flex items-center h-6 w-6 sm:h-7 sm:w-7 p-0 text-gray-500 hover:bg-gray-50 hover:text-red-600"
                           >
                             <Trash2 className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
-                          </Button>
+                          </div>
                         </div>
                       )}
                     </div>
