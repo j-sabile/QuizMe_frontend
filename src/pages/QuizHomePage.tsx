@@ -305,30 +305,30 @@ const QuizHomePage = () => {
               {quiz.questions?.map((question, qIndex) => (
                 <AccordionItem key={qIndex} value={qIndex.toString()} className="border-b border-gray-200">
                   <AccordionTrigger className="py-3 hover:no-underline text-left">
-                    <div className="flex items-center justify-between w-full pr-2 sm:pr-4">
+                    <div className="flex items-center justify-between w-full sm:pr-4">
                       <div className="text-left font-normal flex-1 min-w-0">
                         <span className="text-gray-500 mr-2 text-base sm:text-lg">{qIndex + 1}.</span>
                         <span className="text-base sm:text-lg break-words">{question.question}</span>
                       </div>
                       {quiz.isOwner && (
-                        <div className="flex items-center gap-1 sm:gap-2 ml-2 flex-shrink-0">
+                        <div className="flex items-center sm:gap-2 flex-shrink-0">
                           <div
                             onClick={(e) => {
                               e.stopPropagation();
                               handleEditQuestion(qIndex);
                             }}
-                            className="flex items-center h-6 w-6 sm:h-7 sm:w-7 p-0 text-gray-500 hover:bg-gray-50"
+                            className="flex items-center h-5 w-5 sm:h-7 sm:w-7 p-[2px] text-gray-500 hover:bg-gray-50"
                           >
-                            <Edit className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                            <Edit className="h-5 w-5" />
                           </div>
                           <div
                             onClick={(e) => {
                               e.stopPropagation();
                               handleDeleteQuestion(qIndex);
                             }}
-                            className="flex items-center h-6 w-6 sm:h-7 sm:w-7 p-0 text-gray-500 hover:bg-gray-50 hover:text-red-600"
+                            className="flex items-center h-5 w-5 sm:h-7 sm:w-7 p-[2px] text-gray-500 hover:bg-gray-50 hover:text-red-600"
                           >
-                            <Trash2 className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                            <Trash2 className="h-5 w-5" />
                           </div>
                         </div>
                       )}
@@ -415,10 +415,10 @@ function EditQuestionForm({ question, onSave, onCancel }: { question: Question; 
         </RadioGroup>
       </div>
       <div className="flex justify-end gap-2">
-        <Button variant="outline" size="lg" className="text-base" onClick={onCancel}>
+        <Button variant="outline" size="default" className="text-base" onClick={onCancel}>
           Cancel
         </Button>
-        <Button size="lg" onClick={() => onSave(editedQuestion)} className="bg-blue-600 hover:bg-blue-700 text-base">
+        <Button size="default" onClick={() => onSave(editedQuestion)} className="bg-blue-600 hover:bg-blue-700 text-base">
           <Save className="mr-2 h-4 w-4" /> Save Changes
         </Button>
       </div>
