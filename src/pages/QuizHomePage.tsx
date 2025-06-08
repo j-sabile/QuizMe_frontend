@@ -84,29 +84,19 @@ const QuizHomePage = () => {
     loadQuiz();
   };
 
-  const handleEditQuestion = (index: number) => {
+  const startEditQuestion = (e: React.MouseEvent, index: number) => {
+    e.stopPropagation();
     setEditingQuestionIndex(index);
   };
 
-  const handleDeleteQuestion = (index: number) => {
-    setQuiz((prev) => {
-      if (!prev) return prev;
-      return {
-        ...prev,
-        questions: prev.questions?.filter((_, i) => i !== index) || [],
-      };
+  const handleDeleteQuestion = async (e: React.MouseEvent, id: string) => {
+    e.stopPropagation();
+    const res = await fetch(`${import.meta.env.VITE_API}/quizzes/${quizId}/questions/${id}`, {
+      method: "DELETE",
+      credentials: "include",
     });
-  };
-
-  const handleSaveQuestion = (index: number, updatedQuestion: Question) => {
-    setQuiz((prev) => {
-      if (!prev) return prev;
-      return {
-        ...prev,
-        questions: prev.questions?.map((q, i) => (i === index ? updatedQuestion : q)) || [],
-      };
-    });
-    setEditingQuestionIndex(null);
+    if (!res.ok) return alert("Something went wrong. Please try again later.");
+    loadQuiz();
   };
 
   const handleCancelEditQuizInfo = () => {
@@ -124,7 +114,7 @@ const QuizHomePage = () => {
     loadQuiz();
   };
 
-  if (!quiz) return;
+  if (!quiz || !quizId) return;
 
   return (
     <div className="flex flex-col justify-start items-start max-w-[720px] lg:max-w-[1024px] w-full mx-auto">
@@ -313,19 +303,13 @@ const QuizHomePage = () => {
                       {quiz.isOwner && (
                         <div className="flex items-center sm:gap-2 flex-shrink-0">
                           <div
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleEditQuestion(qIndex);
-                            }}
+                            onClick={(e) => startEditQuestion(e, qIndex)}
                             className="flex items-center h-5 w-5 sm:h-7 sm:w-7 p-[2px] text-gray-500 hover:bg-gray-50"
                           >
                             <Edit className="h-5 w-5" />
                           </div>
                           <div
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleDeleteQuestion(qIndex);
-                            }}
+                            onClick={(e) => handleDeleteQuestion(e, question.id!)}
                             className="flex items-center h-5 w-5 sm:h-7 sm:w-7 p-[2px] text-gray-500 hover:bg-gray-50 hover:text-red-600"
                           >
                             <Trash2 className="h-5 w-5" />
@@ -336,11 +320,7 @@ const QuizHomePage = () => {
                   </AccordionTrigger>
                   <AccordionContent>
                     {editingQuestionIndex === qIndex ? (
-                      <EditQuestionForm
-                        question={question}
-                        onSave={(updatedQuestion) => handleSaveQuestion(qIndex, updatedQuestion)}
-                        onCancel={() => setEditingQuestionIndex(null)}
-                      />
+                      <EditQuestionForm question={question} onSuccess={loadQuiz} quizId={quizId} onClose={() => setEditingQuestionIndex(null)} />
                     ) : (
                       <div className="py-2 pl-3 sm:pl-6">
                         {/* Mobile: Single column, Desktop: Two columns */}
@@ -381,8 +361,19 @@ const QuizHomePage = () => {
 export default QuizHomePage;
 
 // Edit Question Form Component
-function EditQuestionForm({ question, onSave, onCancel }: { question: Question; onSave: (question: Question) => void; onCancel: () => void }) {
+function EditQuestionForm({ question, quizId, onSuccess, onClose }: { question: Question; quizId: string; onSuccess: () => void; onClose: () => void }) {
   const [editedQuestion, setEditedQuestion] = useState<Question>(question);
+
+  const handleEditQuestion = async () => {
+    await fetch(`${import.meta.env.VITE_API}/quizzes/${quizId}/questions/${question.id}`, {
+      method: "PATCH",
+      credentials: "include",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({ ...editedQuestion }),
+    });
+    onSuccess();
+    onClose();
+  };
 
   return (
     <div className="py-2 space-y-4">
@@ -415,10 +406,10 @@ function EditQuestionForm({ question, onSave, onCancel }: { question: Question; 
         </RadioGroup>
       </div>
       <div className="flex justify-end gap-2">
-        <Button variant="outline" size="default" className="text-base" onClick={onCancel}>
+        <Button variant="outline" size="default" className="text-base" onClick={onClose}>
           Cancel
         </Button>
-        <Button size="default" onClick={() => onSave(editedQuestion)} className="bg-blue-600 hover:bg-blue-700 text-base">
+        <Button size="default" onClick={handleEditQuestion} className="bg-blue-600 hover:bg-blue-700 text-base">
           <Save className="mr-2 h-4 w-4" /> Save Changes
         </Button>
       </div>
