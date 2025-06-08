@@ -75,6 +75,7 @@ const LogInSignUpTemplate: React.FC<{ isSignIn: boolean }> = ({ isSignIn }) => {
                   id="username"
                   type="text"
                   value={username}
+                  autoComplete="username"
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="Enter your username or email"
                   className="pl-10 h-12 border-slate-200 focus:border-slate-600 focus:ring-slate-400 focus:outline-0 w-full border-[1px] rounded-lg"
@@ -96,6 +97,7 @@ const LogInSignUpTemplate: React.FC<{ isSignIn: boolean }> = ({ isSignIn }) => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter your password"
+                  autoComplete={isSignIn ? "current-password" : "new-password"}
                   className="pl-10 pr-10 h-12 border-slate-200 focus:border-slate-400 focus:ring-slate-600 focus:outline-0 w-full border-[1px] rounded-lg"
                   required
                 />
