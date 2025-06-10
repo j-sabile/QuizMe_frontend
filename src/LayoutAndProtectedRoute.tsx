@@ -1,4 +1,4 @@
-import { Link, Outlet, useNavigate } from "react-router";
+import { Link, Outlet, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 const ProtectedRoute = () => {
@@ -12,7 +12,7 @@ const ProtectedRoute = () => {
         const response = await fetch(`${import.meta.env.VITE_API}/auth/status`, { credentials: "include" });
         if (!response.ok) throw new Error();
       } catch (error) {
-        navigate("/sign-in");
+        navigate({ to: "/sign-in" });
       }
     };
     checkAuthStatus();
@@ -23,7 +23,7 @@ const ProtectedRoute = () => {
     localStorage.removeItem("userId");
     window.location.href = "/";
   };
-  
+
   return (
     <div className="h-screen">
       {/* Top Bar (Mobile only) */}
@@ -63,7 +63,8 @@ const ProtectedRoute = () => {
               Home
             </Link>
             <Link
-              to={`user/${localStorage.getItem("userId")}`}
+              to={"/user/$userId"}
+              params={{ userId: localStorage.getItem("userId")! }}
               className="block px-4 py-2 rounded hover:bg-gray-200 transition-colors"
               onClick={() => setSidebarOpen(false)}
             >
