@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
-// import { Search } from "lucide-react";
+import { createFileRoute } from "@tanstack/react-router";
 import Quizzes from "@/components/Quizzes";
-import { getQuizzes, QUIZ_TYPE } from "@/utils/getQuizzes";
+import { getQuizzes } from "@/utils/getQuizzes";
 import type { Quiz } from "@/interfaces/IQuiz";
 
-const HomePage = () => {
+export const Route = createFileRoute("/_auth/")({
+  component: LandingPage,
+});
+
+function LandingPage() {
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
 
   useEffect(() => {
     const loadQuizzes = async () => {
-      const data = await getQuizzes(QUIZ_TYPE.FEATURED);
+      const data = await getQuizzes();
       setQuizzes(data);
     };
     loadQuizzes();
@@ -52,9 +56,8 @@ const HomePage = () => {
       </section>
     </main>
   );
-};
+}
 
-export default HomePage;
 // import { useState, useEffect } from "react";
 // import { useNavigate } from "react-router";
 // // import { Modal, Button, Spinner } from "react-bootstrap";

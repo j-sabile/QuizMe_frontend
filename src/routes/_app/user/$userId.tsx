@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router";
+import { createFileRoute, Link, useNavigate, useParams } from "@tanstack/react-router";
 import { Award, BarChart3, BookOpen, Calendar, Clock, Edit3, Target, Trophy, User } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import createQuiz from "@/utils/createQuiz";
 import type { Quiz } from "@/interfaces/IQuiz";
 import type { IUser } from "@/interfaces/IUser";
-import createQuiz from "@/utils/createQuiz";
 
-const Account = () => {
-  const { userId } = useParams();
+export const Route = createFileRoute("/_app/user/$userId")({
+  component: Account,
+});
+
+function Account() {
+  const { userId } = useParams({ from: "/_app/user/$userId" });
   const navigate = useNavigate();
   const [user, setUser] = useState<IUser | null>(null);
   const [activeTab, setActiveTab] = useState("overview");
@@ -138,7 +141,7 @@ const Account = () => {
             <div className="space-y-4 sm:space-y-6">
               {user.quizzesTaken.map((record) => (
                 <div key={record.id}>
-                  <Link to={`/result/${record.id}`}>
+                  <Link to={`/result/$resultId`} params={{ resultId: record.id }}>
                     <div key={record.id} className="bg-gray-50 rounded-2xl p-4 sm:p-8 border-2 border-gray-200 hover:bg-gray-100">
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex-1">
@@ -189,7 +192,7 @@ const Account = () => {
             <div className="space-y-6">
               {user.quizzesCreated.map((quiz) => (
                 <div>
-                  <Link to={`/quiz/${quiz.id}`}>
+                  <Link to={"/quiz/$quizId"} params={{ quizId: quiz.id }}>
                     <div key={quiz.id} className="bg-gray-50 rounded-2xl p-8 border-2 border-gray-200 hover:bg-gray-100">
                       <div className="flex items-start justify-between ">
                         <div className="flex-1">
@@ -285,18 +288,4 @@ const Account = () => {
       </div>
     </div>
   );
-
-  // return (
-  //   <div className="flex flex-col justify-start items-start gap-8 max-w-[1080px] w-full h-full mx-auto p-4">
-  //     {userId}
-
-  //     <div>{user.username}</div>
-  //     <div></div>
-  //     <div></div>
-  //     <div></div>
-  //     <div></div>
-  //   </div>
-  // );
-};
-
-export default Account;
+}

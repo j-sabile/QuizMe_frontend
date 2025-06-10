@@ -1,13 +1,16 @@
 import { useEffect } from "react";
-import { useLocation } from "react-router";
+import { createFileRoute, useSearch } from "@tanstack/react-router";
 
-const GoogleAuth = () => {
-  const location = useLocation();
+export const Route = createFileRoute("/_auth/google-auth")({
+  component: GoogleAuth,
+});
+
+function GoogleAuth() {
+  const location = useSearch({ from: "/_auth/google-auth" });
 
   useEffect(() => {
     const load = async () => {
-      if (!location.hash) return;
-      const hash = location.hash.substring(1);
+      const hash = window.location.hash.substring(1);
       const params = new URLSearchParams(hash);
       const accessToken = params.get("access_token");
       if (!accessToken) return;
@@ -26,6 +29,6 @@ const GoogleAuth = () => {
   }, [location]);
 
   return <></>;
-};
+}
 
 export default GoogleAuth;

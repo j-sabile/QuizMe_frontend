@@ -1,16 +1,19 @@
-import { useNavigate } from "react-router";
-import Quizzes from "../components/Quizzes";
-import createQuiz from "../utils/createQuiz";
 import { useEffect, useState } from "react";
-import { getQuizzes, QUIZ_TYPE } from "../utils/getQuizzes";
-import type { Quiz } from "../interfaces/IQuiz";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import Quizzes from "@/components/Quizzes";
+import { getQuizzes, QUIZ_TYPE } from "@/utils/getQuizzes";
+import createQuiz from "@/utils/createQuiz";
+import type { Quiz } from "@/interfaces/IQuiz";
 
-const tags = ["All", "Trending", "Following", "For you", "Music", "Geography"];
+export const Route = createFileRoute("/_app/home")({
+  component: Explore,
+});
 
-const Explore = () => {
+function Explore() {
   const navigate = useNavigate();
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [newQuizzes, setNewQuizzes] = useState<Quiz[]>([]);
+  const tags = ["All", "Trending", "Following", "For you", "Music", "Geography"];
 
   useEffect(() => {
     const loadQuizzes = async () => {
@@ -41,6 +44,6 @@ const Explore = () => {
       <Quizzes quizzes={newQuizzes} title="Newest Quizzes" />
     </main>
   );
-};
+}
 
 export default Explore;

@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
-import type { Quiz } from "../interfaces/IQuiz";
-import QuestionWithChoices from "../components/QuestionWithChoices";
+import { createFileRoute, Link, useParams } from "@tanstack/react-router";
+import QuestionWithChoices from "@/components/QuestionWithChoices";
+import type { Quiz } from "@/interfaces/IQuiz";
 
-const AnswerQuiz = () => {
-  const { quizId } = useParams();
+export const Route = createFileRoute("/_app/quiz/$quizId/answer")({
+  component: AnswerQuiz,
+});
+
+function AnswerQuiz() {
+  const { quizId } = useParams({ from: "/_app/quiz/$quizId/answer" });
   const [quiz, setQuiz] = useState<Quiz | null>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<number[]>([]);
@@ -63,7 +67,7 @@ const AnswerQuiz = () => {
     });
   };
 
-  if (!quiz || !totalQuestions) return;
+  if (!quiz || totalQuestions == null) return;
 
   if (totalQuestions === 0) return <>There are no questions to answer.</>;
 
@@ -71,10 +75,10 @@ const AnswerQuiz = () => {
     return (
       <div className="flex flex-col justify-start items-center gap-4 max-w-[1080px] w-full h-full mx-auto pt-12">
         <h4 className="text-3xl font-semibold text-center w-full mb-6"> You have successfully submitted!</h4>
-        <Link to={`/quiz/${quizId}`} className="bg-neutral-200 hover:bg-neutral-300 text-black rounded-lg shadow px-7 py-2">
+        <Link to={`/quiz/$quizId`} params={{ quizId }} className="bg-neutral-200 hover:bg-neutral-300 text-black rounded-lg shadow px-7 py-2">
           Go back
         </Link>
-        <Link to={`/result/${resultId}`} className="bg-blue-500 hover:bg-blue-600 text-white rounded-lg shadow px-7 py-2">
+        <Link to={`/result/$resultId`} params={{ resultId }} className="bg-blue-500 hover:bg-blue-600 text-white rounded-lg shadow px-7 py-2">
           View result
         </Link>
       </div>
@@ -127,6 +131,6 @@ const AnswerQuiz = () => {
       </div>
     </form>
   );
-};
+}
 
 export default AnswerQuiz;

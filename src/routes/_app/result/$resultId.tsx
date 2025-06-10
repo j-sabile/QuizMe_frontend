@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
+import { createFileRoute, Link, useParams } from "@tanstack/react-router";
 import { ChevronDown, ChevronUp, RotateCcw } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Badge } from "@/components/ui/badge";
-import { Link, useParams } from "react-router";
-import type { IQuizResult } from "@/interfaces/IQuizResult";
 import QuestionWithChoices from "@/components/QuestionWithChoices";
+import type { IQuizResult } from "@/interfaces/IQuizResult";
 
-const QuizResult = () => {
-  const { resultId } = useParams();
+export const Route = createFileRoute("/_app/result/$resultId")({
+  component: QuizResult,
+});
+
+function QuizResult() {
+  const { resultId } = useParams({ from: "/_app/result/$resultId" });
   const [scoreVisible, setScoreVisible] = useState(false);
   const [quizResult, setQuizResult] = useState<IQuizResult | null>(null);
 
@@ -91,7 +95,7 @@ const QuizResult = () => {
 
         {/* Action Buttons */}
         <div className="mt-16 flex flex-col sm:flex-row gap-4 justify-center">
-          <Link to={`/quiz/${quizResult.quizId}/answer`}>
+          <Link to="/quiz/$quizId/answer" params={{ quizId: quizResult.quizId as string }}>
             <Button size="lg" className="text-lg px-8 py-4 h-auto flex items-center gap-3">
               <RotateCcw className="w-5 h-5" />
               Retake Quiz
@@ -106,6 +110,6 @@ const QuizResult = () => {
       </div>
     </div>
   );
-};
+}
 
 export default QuizResult;

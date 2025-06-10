@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { Eye, EyeOff, Mail, Lock } from "lucide-react";
 
 const LogInSignUpTemplate: React.FC<{ isSignIn: boolean }> = ({ isSignIn }) => {
@@ -36,7 +36,7 @@ const LogInSignUpTemplate: React.FC<{ isSignIn: boolean }> = ({ isSignIn }) => {
 
       if (res.ok) {
         alert("Successfully created account");
-        navigate("/sign-in");
+        navigate({ to: "/sign-in" });
       } else if (res.status === 409) alert("Username is already taken");
       else alert("An error has occured. Please try again later.");
     }
@@ -173,14 +173,10 @@ const LogInSignUpTemplate: React.FC<{ isSignIn: boolean }> = ({ isSignIn }) => {
         {/* Footer */}
         <div className="text-center mt-8">
           <p className="text-xs text-slate-500">
-            By signing in, you agree to our{" "}
-            <Link to="/terms" className="underline hover:text-slate-700 transition-colors">
-              Terms of Service
-            </Link>{" "}
-            and{" "}
-            <Link to="/privacy" className="underline hover:text-slate-700 transition-colors">
-              Privacy Policy
-            </Link>
+            By signing in, you agree to our
+            <br />
+            <span className="underline hover:text-slate-700 transition-colors">Terms of Service</span> and{" "}
+            <span className="underline hover:text-slate-700 transition-colors">Privacy Policy</span>
           </p>
         </div>
       </div>

@@ -1,23 +1,23 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "@tanstack/react-router";
 
 export default function Navbar() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleLogInClick = () => {
-    navigate("/sign-in");
+    navigate({ to: "/sign-in" });
     setIsOpen(false);
   };
 
   const handleHomeClick = () => {
-    navigate("/");
+    navigate({ to: "/" });
     setIsOpen(false);
   };
 
   const handleCreateAccClick = () => {
-    navigate("/sign-up");
+    navigate({ to: "/sign-up" });
     setIsOpen(false);
   };
 

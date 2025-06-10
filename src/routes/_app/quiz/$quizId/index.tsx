@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
-import type { Quiz } from "../interfaces/IQuiz";
-import type { Question } from "../interfaces/IQuestion";
+import { createFileRoute, Link, useParams } from "@tanstack/react-router";
 import { Edit, Plus, Save, Sparkles, Trash2 } from "lucide-react";
-
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -13,9 +10,15 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import type { Quiz } from "@/interfaces/IQuiz";
+import type { Question } from "@/interfaces/IQuestion";
 
-const QuizHomePage = () => {
-  const { quizId } = useParams();
+export const Route = createFileRoute("/_app/quiz/$quizId/")({
+  component: QuizHomePage,
+});
+
+function QuizHomePage() {
+  const { quizId } = useParams({ from: "/_app/quiz/$quizId/" });
   const [quiz, setQuiz] = useState<Quiz | null>(null);
   const [isOwner, setIsOwner] = useState(false);
 
@@ -145,7 +148,7 @@ const QuizHomePage = () => {
           </div>
         )}
 
-        <Link to={`/quiz/${quizId}/answer`} className="bg-blue-500 hover:bg-blue-600 text-white text-lg rounded-xl shadow px-12 py-3">
+        <Link to={"/quiz/$quizId/answer"} params={{ quizId }} className="bg-blue-500 hover:bg-blue-600 text-white text-lg rounded-xl shadow px-12 py-3">
           Start Quiz
         </Link>
 
@@ -176,7 +179,7 @@ const QuizHomePage = () => {
                 </div>
                 <div>
                   <Label className="text-sm text-gray-500">Created by</Label>
-                  <Link to={`/user/${quiz.userId.id}`} className="text-sm sm:text-base">
+                  <Link to={"/user/$userId"} params={{ userId: quiz.userId.id }} className="text-sm sm:text-base">
                     {quiz.userId.username}
                   </Link>
                 </div>
@@ -356,7 +359,7 @@ const QuizHomePage = () => {
       </div>
     </div>
   );
-};
+}
 
 export default QuizHomePage;
 
